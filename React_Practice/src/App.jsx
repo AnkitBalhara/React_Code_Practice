@@ -1,30 +1,32 @@
-import React from "react";
-import { useState, useRef } from "react";
+import { useCallback, useState } from "react";
+import Navbar from "./components/Navbar";
 
-function App() {
-  const [value, setValue] = useState("");
+const App = () => {
+  const [value, setValue] = useState(0);
 
-  const debounce = (fn, delay) => {
-    let timer;
-    return (value) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn(value);
-      }, delay);
-    };
-  };
-  const debouncedChange = useRef(
-    debounce((val) => {
-      setValue(val);
-    }, 1000)
-  ).current;
+  function addValue(pre) {
+    setValue((pre) => pre + 1);
+    setValue((pre) => pre + 1);
+  }
+  function subValue(pre) {
+    setValue(value - 1);
+    setValue(value - 1);
+  }
+
+  const fnFun = useCallback( () => {
+    console.log("Jai Hanuman")
+  },[value])  
+
   return (
     <div>
-      Jai Shree Ram
-      <input type="text" onChange={(e) => debouncedChange(e.target.value)} />
-      <div>{value}</div>
+      {/* <Navbar ex={"Jai SiyaRam"}  /> */}
+      <Navbar  hanuman={fnFun} />
+
+      <button onClick={addValue}>+</button>
+      <button style={{ margin: "12px" }}>{value}</button>
+      <button onClick={subValue}>-</button>
     </div>
   );
-}
+};
 
 export default App;

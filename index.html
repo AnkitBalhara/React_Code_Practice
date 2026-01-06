@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throtling Practice</title>
+    <style>
+        #body {
+            height: 200vh;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div>Open Console to see the throttling effects </div>
+
+
+    <script>
+        const throttling = (fn, delay) => {
+            let lastCall = 0;
+            return function (...args) {
+                let now = Date.now();
+                if (now - lastCall >= delay) {
+                    lastCall = now
+                    fn(...args)
+                }
+            }
+        }
+
+        const fetchScroll = ()=>{
+            console.log("Scroll at :- ", new Date().toLocaleTimeString())
+        }
+
+        const throttled = throttling(fetchScroll,3000)
+
+        window.addEventListener("scroll",throttled)
+    </script>
+</body>
+
+</html>
