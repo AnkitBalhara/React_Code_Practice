@@ -1,32 +1,23 @@
-import { useCallback, useState } from "react";
-import Navbar from "./components/Navbar";
+import React, { useCallback, useState } from "react";
+import Child from "./components/Child";
 
-const App = () => {
-  const [value, setValue] = useState(0);
+const Parent = () => {
+  const [value, setvalue] = useState(0);
 
-  function addValue(pre) {
-    setValue((pre) => pre + 1);
-    setValue((pre) => pre + 1);
-  }
-  function subValue(pre) {
-    setValue(value - 1);
-    setValue(value - 1);
-  }
+  const add = () => {
+    setvalue((pre) => pre + 1);
+  };
 
-  const fnFun = useCallback( () => {
-    console.log("Jai Hanuman")
-  },[value])  
-
+  const sub = useCallback(() => {
+    console.log("useCallback");
+    // Below is the dependecy array,  if you specific that this fn will run when which state/cond. changes so we need to specify that else if we write/console the "value" state it will not be printed.
+  }, []);
   return (
     <div>
-      {/* <Navbar ex={"Jai SiyaRam"}  /> */}
-      <Navbar  hanuman={fnFun} />
-
-      <button onClick={addValue}>+</button>
-      <button style={{ margin: "12px" }}>{value}</button>
-      <button onClick={subValue}>-</button>
+      <Child props={sub} />
+      <button onClick={add}>+</button>
+      {value}
     </div>
   );
 };
-
-export default App;
+export default Parent;
