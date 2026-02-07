@@ -4,37 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Throtling Practice</title>
-    <style>
-        #body {
-            height: 200vh;
-        }
-    </style>
+    <title>JS Practices</title>
 </head>
 
-<body id="body">
-    <div>Open Console to see the throttling effects </div>
-
+<body>
+    <input type="text" id="input_value">
 
     <script>
-        const throttling = (fn, delay) => {
-            let lastCall = 0;
+        const debounce = (fn, delay) => {
+            let timer;
             return function (...args) {
-                let now = Date.now();
-                if (now - lastCall >= delay) {
-                    lastCall = now
+                clearTimeout(timer)
+                timer = setTimeout(() => {
                     fn(...args)
-                }
+                }, delay)
             }
         }
 
-        const fetchScroll = ()=>{
-            console.log("Scroll at :- ", new Date().toLocaleTimeString())
+        const deb = (query) => {
+            console.log("Jai Shree Ram", query)
         }
 
-        const throttled = throttling(fetchScroll,3000)
+        const callde = debounce(deb, 500)
 
-        window.addEventListener("scroll",throttled)
+        document.getElementById("input_value").addEventListener("input", (e) => {
+            callde(e.target.value)
+        })
+
     </script>
 </body>
 
